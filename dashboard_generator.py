@@ -50,7 +50,7 @@ year = df.at[0,'year']
 #calculate revenue
 revenue = df["sales price"].sum() 
 df["formattedrevenue"] = to_usd(revenue)
-print(df)
+#print(df)
 #print beginning of report
 print("-----------------------")
 print("MONTH:" + ' ' + str(month) + ' ' + str(year))
@@ -66,7 +66,7 @@ pdsales = df.groupby(['product'], as_index=False).sum()
 pdsales["revenue"] = pdsales["sales price"]
 #make the column be in USD
 pdsales["formattedrevenue"] = pdsales["revenue"].apply(to_usd)
-print(pdsales)
+#print(pdsales)
 #sort them by top sellers
 pdsalessorted = pdsales.sort_values(by=['revenue'], ascending=False)
 
@@ -79,8 +79,8 @@ print("TOP SELLING PRODUCTS:")
 for index, row in pdsalessorted.iterrows():
     print(row['number'],row['product'],row['formattedrevenue'])
 
-print(pdsalessorted)
-print(type(pdsalessorted))
+#print(pdsalessorted)
+#print(type(pdsalessorted))
 
 #DATA VISUALIZATION
 
@@ -89,9 +89,9 @@ print("VISUALIZING THE DATA...")
 
 
 newdf = pdsalessorted.filter(['product','revenue','formattedrevenue'], axis=1)
-print(newdf)
+#print(newdf)
 rev = newdf.at[0,'revenue']
-print(type(rev))
+#print(type(rev))
 
 
 
@@ -103,9 +103,9 @@ formattedrevenueamt = newdf['formattedrevenue'].tolist()
 #for x in newdf:
 #    productname.append(x['product'])
 #    revenueamt.append(x['revenue'])
-print(productname)
+#print(productname)
 #print(revenueamt)
-print(formattedrevenueamt)
+#print(formattedrevenueamt)
 
 
 x = [i for i in productname]
@@ -117,7 +117,7 @@ x_pos = [i for i, _ in enumerate(x)]
 fig, ax = plt.subplots()    
 
 #for i, v in enumerate(formattedrev):
-    #ax.text(v + 1, i + .25, str(v), color='blue')
+    #ax.text(v + 1, i + .25, str(v), color='black')
     #ax.text(v + 1, i + .25, v, color='blue')
 
 formatter = ticker.FormatStrFormatter('$%1.2f')
@@ -137,4 +137,5 @@ plt.title("Top Selling Products" + ' ' + str(month) + ' ' + str(year))
 plt.yticks(x_pos, x)
 
 plt.show()
-
+#plt.savefig(os.path.join(os.path.dirname(__file__),"figures","chart.png"))
+#plt.savefig('chart.png')
