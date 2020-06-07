@@ -9,6 +9,7 @@ from tkinter import filedialog
 import re
 import matplotlib as plot
 import matplotlib.pyplot as plt
+import matplotlib.ticker as ticker
 import altair as alt 
 from altair import Chart, X, Y, Axis, SortField
 
@@ -109,43 +110,31 @@ print(formattedrevenueamt)
 
 x = [i for i in productname]
 rev = [i for i in revenueamt]
+formattedrev = [i for i in formattedrevenueamt]
 
 x_pos = [i for i, _ in enumerate(x)]
 
+fig, ax = plt.subplots()    
+
+#for i, v in enumerate(formattedrev):
+    #ax.text(v + 1, i + .25, str(v), color='blue')
+    #ax.text(v + 1, i + .25, v, color='blue')
+
+formatter = ticker.FormatStrFormatter('$%1.2f')
+ax.xaxis.set_major_formatter(formatter)
+ax.xaxis.set_ticks_position(position='bottom')
+
+for tick in ax.xaxis.get_major_ticks():
+    tick.label1.set_visible(True)
+    tick.label2.set_visible(False)
+    tick.label2.set_color('black')
+
 plt.barh(x_pos, rev, color='green')
 plt.ylabel("Product")
-plt.xlabel("Revenue ($)")
+plt.xlabel("Revenue (USD)")
 plt.title("Top Selling Products" + ' ' + str(month) + ' ' + str(year))
 
 plt.yticks(x_pos, x)
 
 plt.show()
 
-
-
-
-#newdf.T.to_dict().values()
-#print(newdf)
-#newdf.to_dict('records')
-#print(records)
-#newdf.plot.bar()
-#newdf['formattedrevenue'].hist()
-
-#newdf.plot(kind="bar", x=pdsalessorted['product'], title="Sales",legend=False)
-
-
-#pdsalessorted.plot(kind="bar", x=pdsalessorted["product"], title="Sales",legend=False)
-
-#alt.Chart(pdsalessorted).mark_bar().encode(x='product',y='revenue')
-
-#pdsalessorted.plot.bar(x='product', y='revenue', title="Monthly sales by product")
-#plot.show(block=True)
-
-#bar_data = pdsalessorted
-#x = [i["product"] for i in bar_data]
-#viewers = [i["formattedrevenue"] for i in bar_data]
-#x_pos = [i for i, _ in enumerate(x)]
-#plt.barh(x_pos, viewers, color='green')
-
-
-#print(bar_data)
